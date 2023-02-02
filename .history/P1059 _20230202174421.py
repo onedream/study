@@ -1,5 +1,0 @@
-N=int(input())
-N_list=list(map(int,input().split()))
-n_list=sorted(set(N_list))
-print(len(n_list))
-print(' '.join(map(str,n_list))) 
