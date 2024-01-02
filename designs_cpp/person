@@ -1,0 +1,195 @@
+class Person
+{
+public:
+    Person() {}
+    ~Person() {} // 析构函数
+    string getname();
+    char getgender();
+    double getage();
+    string getnumber();
+    double getoffice_visit_fee();
+
+protected:
+    string name;
+    string number;
+    char gender;
+    int age;
+    double office_visit_fee; // 诊费
+};
+class Doctor : public Person
+{
+private:
+    string specially; // 专业说明
+public:
+    Doctor() {}
+    string getspecially();
+};
+class Patient : public Person
+{
+private:
+    string dc_name;
+    double drug_fee; // 药费
+public:
+    double getDrugFee();
+    string getdc_name();
+};
+class Bill
+{
+public:
+    void save_doctor_name(string);
+    void save_patient_name(string);
+    void save_office_visit_fee(double);
+    void save_drug_fee(double);
+
+private:
+    string doctor_name;
+    string patient_name;
+    double office_visit_fee;
+    double drug_fee;
+};
+// 人类
+string Person::getname()
+{
+    cout << "姓名：";
+    cin >> name;
+    return name;
+}
+string Person::getnumber()
+{
+    cout << "电话号码：";
+    cin >> number;
+    while (number.length() != 11)
+    {
+        cout << "\n*** 输入错误，请重新输入 ***\n";
+        while (getchar() != '\n')
+            ;
+        cin.clear();
+        cout << "电话号码：";
+        cin >> number;
+    }
+    return number;
+}
+char Person::getgender()
+{
+    cout << "性别(M或者W)：";
+    cin >> gender;
+    while (gender != 'm' && gender != 'M' && gender != 'w' && gender != 'W')
+    {
+        cout << "\n*** 输入错误，请重新输入 ***\n";
+        while (getchar() != '\n')
+            ;
+        cin.clear();
+        cout << "性别(M或者W)：";
+        cin >> gender;
+    }
+    return gender;
+}
+double Person::getage()
+{
+    cout << "年龄：";
+    cin >> age;
+    while (age <= 0)
+    {
+        cout << "\n*** 输入错误，请重新输入 ***\n";
+        while (getchar() != '\n')
+            ;
+        cin.clear();
+        cout << "年龄：";
+        cin >> age;
+    }
+    return age;
+}
+double Person::getoffice_visit_fee()
+{
+    cout << "诊费：";
+    cin >> office_visit_fee;
+    while (cin.fail() || office_visit_fee < 0) // 检查输入是否有效且大于等于零
+    {
+        cout << "\n*** 输入错误，请重新输入 ***\n";
+        while (getchar() != '\n')
+            ;
+        cin.clear();
+        cout << "诊费：";
+        cin >> office_visit_fee;
+    }
+    return office_visit_fee;
+}
+// 医生类
+string Doctor::getspecially()
+{
+    cout << "专业说明：";
+    cin.ignore();
+    getline(cin, specially);
+    return specially;
+}
+// 患者类
+double Patient::getDrugFee()
+{
+    cout << "药费：";
+    cin >> drug_fee;
+    while (cin.fail() || drug_fee < 0)
+    {
+        cout << "\n*** 输入错误，请重新输入 ***\n";
+        while (getchar() != '\n')
+            ;
+        cin.clear();
+        cout << "药费：";
+        cin >> drug_fee;
+    }
+    return drug_fee;
+}
+string Patient::getdc_name()
+{
+    cout << "主治医生：";
+    cin >> dc_name;
+    return dc_name;
+}
+// 账单类
+void Bill::save_doctor_name(string Doctor_name)
+{
+    ofstream outfile("bill.txt", ios::out | ios::app);
+    if (!outfile)
+    {
+        cout << "打开bill.txt文件失败！" << endl;
+        return;
+    }
+    doctor_name = Doctor_name;
+    outfile << doctor_name << " ";
+    outfile.close(); // 关闭文件
+}
+void Bill::save_patient_name(string Patient_name)
+{
+    ofstream outfile("bill.txt", ios::out | ios::app);
+    if (!outfile)
+    {
+        cout << "打开bill.txt文件失败！" << endl;
+        return;
+    }
+    patient_name = Patient_name;
+    outfile << patient_name << " ";
+    outfile.close(); // 关闭文件
+}
+void Bill::save_office_visit_fee(double Office_visit_fee)
+{
+    ofstream outfile("bill.txt", ios::out | ios::app);
+    if (!outfile)
+    {
+        cout << "打开bill.txt文件失败！" << endl;
+        return;
+    }
+    office_visit_fee = Office_visit_fee;
+    outfile << office_visit_fee << " ";
+    outfile.close(); // 关闭文件
+}
+void Bill::save_drug_fee(double Drug_fee)
+{
+    ofstream outfile("bill.txt", ios::out | ios::app);
+    if (!outfile)
+    {
+        cout << "打开bill.txt文件失败！" << endl;
+        return;
+    }
+    drug_fee = Drug_fee;
+    outfile << drug_fee << " ";
+    outfile.close(); // 关闭文件
+}
