@@ -114,13 +114,13 @@ void input_doctor()
         {
             for (i = 1; i <= num; i++)
             {
-                outfile << doctor.getname() << endl;
-                outfile << doctor.getgender() << endl;
-                outfile << doctor.getage() << endl;
-                outfile << doctor.getnumber() << endl;
-                outfile << doctor.getoffice_visit_fee() << endl;
+                outfile << doctor.getname() << " ";
+                outfile << doctor.getgender() << " ";
+                outfile << doctor.getage() << " ";
+                outfile << doctor.getnumber() << " ";
+                outfile << doctor.getoffice_visit_fee() << " ";
                 outfile << doctor.getspecially() << endl;
-                outfile << endl;
+                //                outfile << endl;
                 cout << endl;
             }
             outfile.close(); // 关闭文件
@@ -142,16 +142,16 @@ void input_patient()
         {
             T = patient.getname();
             bill.save_patient_name(T);
-            outfile << T << endl;
-            outfile << patient.getgender() << endl;
-            outfile << patient.getage() << endl;
-            outfile << patient.getnumber() << endl;
+            outfile << T << " ";
+            outfile << patient.getgender() << " ";
+            outfile << patient.getage() << " ";
+            outfile << patient.getnumber() << " ";
             T = patient.getdc_name();
             bill.save_doctor_name(T);
-            outfile << T << endl;
+            outfile << T << " ";
             t = patient.getoffice_visit_fee();
             bill.save_office_visit_fee(t);
-            outfile << t << endl;
+            outfile << t << " ";
             t = patient.getDrugFee();
             bill.save_drug_fee(t);
             outfile << t << endl;
@@ -217,17 +217,34 @@ void display_dc()
         cout << "打开文件失败！";
         return;
     }
+    char c;
+    infile >> c;
+    if (infile.eof())
+    {
+        cout << "未查询到信息！" << endl;
+        infile.close();
+        return;
+    }
+    cout << "--------------------------------------------------------------" << endl;
+    cout << "姓名"
+         << "\t"
+         << "性别"
+         << "\t"
+         << "年龄"
+         << "\t"
+         << "电话号码"
+         << "\t"
+         << "诊费"
+         << "\t"
+         << "专业" << endl;
+    cout << "--------------------------------------------------------------" << endl;
     while (infile >> name[i] >> gender[i] >> age[i] >> number[i] >> office_visit_fee[i] >> specially[i])
     {
-        cout << "医生姓名：" << name[i] << endl;
-        cout << "医生性别：" << gender[i] << endl;
-        cout << "医生年龄：" << age[i] << endl;
-        cout << "医生电话号码：" << number[i] << endl;
-        cout << "医生诊费：" << office_visit_fee[i] << endl;
-        cout << "医生专业：" << specially[i] << endl;
-        cout << endl;
+        cout << name[i] << "\t" << gender[i] << "\t" << age[i] << "\t" << number[i] << "\t" << office_visit_fee[i] << "\t" << specially[i] << endl;
+        cout << "--------------------------------------------------------------" << endl;
         ++i;
     }
+    cout << endl;
 }
 void display_pa()
 {
@@ -238,19 +255,38 @@ void display_pa()
         cout << "打开文件失败！";
         return;
     }
+    char c;
+    infile >> c;
+    if (infile.eof())
+    {
+        cout << "未查询到信息！" << endl;
+        infile.close();
+        return;
+    }
+    cout << "------------------------------------------------------------------------------" << endl;
+    cout << "姓名"
+         << "\t"
+         << "性别"
+         << "\t"
+         << "年龄"
+         << "\t"
+         << "电话号码"
+         << "\t"
+         << "主治医生"
+         << "\t"
+         << "诊费"
+         << "\t"
+         << "药费"
+         << "\t"
+         << "总费用" << endl;
+    cout << "------------------------------------------------------------------------------" << endl;
     while (infile >> name[i] >> gender[i] >> age[i] >> number[i] >> doctor_name[i] >> office_visit_fee[i] >> drug_fee[i])
     {
-        cout << "患者姓名：" << name[i] << endl;
-        cout << "性别：" << gender[i] << endl;
-        cout << "年龄：" << age[i] << endl;
-        cout << "电话号码：" << number[i] << endl;
-        cout << "医生姓名：" << doctor_name[i] << endl;
-        cout << "诊费：" << office_visit_fee[i] << endl;
-        cout << "药费：" << drug_fee[i] << endl;
-        cout << "总费用：" << office_visit_fee[i] + drug_fee[i] << endl;
-        cout << endl;
+        cout << name[i] << "\t" << gender[i] << "\t" << age[i] << "\t" << number[i] << "\t" << doctor_name[i] << "\t\t" << office_visit_fee[i] << "\t" << drug_fee[i] << "\t" << office_visit_fee[i] + drug_fee[i] << endl;
+        cout << "------------------------------------------------------------------------------" << endl;
         ++i;
     }
+    cout << endl;
 }
 void display_bill()
 {
@@ -261,18 +297,35 @@ void display_bill()
         cout << "打开文件失败！";
         return;
     }
+    char c;
+    infile >> c;
+    if (infile.eof())
+    {
+        cout << "未查询到信息！" << endl;
+        infile.close();
+        return;
+    }
+    cout << "----------------------------------------------------------" << endl;
+    cout << "患者姓名"
+         << "\t"
+         << "医生姓名"
+         << "\t"
+         << "诊费"
+         << "\t"
+         << "药费"
+         << "\t"
+         << "总费用" << endl;
+    cout << "----------------------------------------------------------" << endl;
     while (infile >> patient_name[i] >> doctor_name[i] >> office_visit_fee[i] >> drug_fee[i])
     {
-        cout << "患者姓名：" << patient_name[i] << endl;
-        cout << "医生姓名：" << doctor_name[i] << endl;
-        cout << "诊费：" << office_visit_fee[i] << endl;
-        cout << "药费：" << drug_fee[i] << endl;
-        cout << "总费用：" << office_visit_fee[i] + drug_fee[i] << endl;
+        cout << patient_name[i] << "\t\t" << doctor_name[i] << "\t\t" << office_visit_fee[i] << "\t" << drug_fee[i] << "\t" << office_visit_fee[i] + drug_fee[i] << endl;
+        cout << "----------------------------------------------------------" << endl;
         sum += office_visit_fee[i] + drug_fee[i];
-        cout << endl;
         ++i;
     }
     cout << "所有患者合计费用：" << sum << endl;
+    cout << "----------------------------------------------------------" << endl;
+    cout << endl;
 }
 int search_pa_name(string na)
 {
@@ -287,14 +340,25 @@ int search_pa_name(string na)
     {
         if (na == name[i])
         {
-            cout << "患者姓名：" << name[i] << endl;
-            cout << "性别：" << gender[i] << endl;
-            cout << "年龄：" << age[i] << endl;
-            cout << "电话号码：" << number[i] << endl;
-            cout << "医生姓名：" << doctor_name[i] << endl;
-            cout << "诊费：" << office_visit_fee[i] << endl;
-            cout << "药费：" << drug_fee[i] << endl;
-            cout << "总费用：" << office_visit_fee[i] + drug_fee[i] << endl;
+            cout << "------------------------------------------------------------------------------" << endl;
+            cout << "姓名"
+                 << "\t"
+                 << "性别"
+                 << "\t"
+                 << "年龄"
+                 << "\t"
+                 << "电话号码"
+                 << "\t"
+                 << "主治医生"
+                 << "\t"
+                 << "诊费"
+                 << "\t"
+                 << "药费"
+                 << "\t"
+                 << "总费用" << endl;
+            cout << "------------------------------------------------------------------------------" << endl;
+            cout << name[i] << "\t" << gender[i] << "\t" << age[i] << "\t" << number[i] << "\t" << doctor_name[i] << "\t\t" << office_visit_fee[i] << "\t" << drug_fee[i] << "\t" << office_visit_fee[i] + drug_fee[i] << endl;
+            cout << "------------------------------------------------------------------------------" << endl;
             cout << endl;
             flag = i;
             return flag;
@@ -318,12 +382,21 @@ int search_dc_name(string na)
     {
         if (na == name[i])
         {
-            cout << "医生姓名：" << name[i] << endl;
-            cout << "医生性别：" << gender[i] << endl;
-            cout << "医生年龄：" << age[i] << endl;
-            cout << "医生电话号码：" << number[i] << endl;
-            cout << "医生诊费：" << office_visit_fee[i] << endl;
-            cout << "医生专业：" << specially[i] << endl;
+            cout << "--------------------------------------------------------------" << endl;
+            cout << "姓名"
+                 << "\t"
+                 << "性别"
+                 << "\t"
+                 << "年龄"
+                 << "\t"
+                 << "电话号码"
+                 << "\t"
+                 << "诊费"
+                 << "\t"
+                 << "专业" << endl;
+            cout << "--------------------------------------------------------------" << endl;
+            cout << name[i] << "\t" << gender[i] << "\t" << age[i] << "\t" << number[i] << "\t" << office_visit_fee[i] << "\t" << specially[i] << endl;
+            cout << "--------------------------------------------------------------" << endl;
             cout << endl;
             flag = i;
             infile.close();
